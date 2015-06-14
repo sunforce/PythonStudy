@@ -4,6 +4,6 @@ print(sys.platform)
 print(2 ** 100)
 x = 'Spam!'
 print (x * 8)
-y=input('Type anything you want printed out')
+y=input('Type anything you want printed out\n')
 print (y)
-input('Press Enter to Exit')
+input('Press Enter to Exit\n')
