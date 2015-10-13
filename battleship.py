@@ -1,52 +1,46 @@
 #!/usr/bin/python
 from random import randint
+from collections import defaultdict
 
-class battleboard(object):
-
-    def __init__(self, name, board_size, board, num_ships):
+class BattleBoard(object):
+    def __init__(self, name, board_size, num_ships):
+        self.player_ships = defaultdict(list)
+        self.board = []
+        self.coords = []
         self.name = name
-        self.board_size = board_size
-        self.board = board
-        self.num_ships = num_ships
-
+        self.board_size = int(board_size)
+        self.num_ships = int(num_ships)
     def create_board(self):
         for x in range(self.board_size):
-            self.board.append(["O"] * board_size)
-
+            self.board.append(["O"] * self.board_size)
     def print_board(self):
         print self.name + "'s Board"
         for row in self.board:
-            print " ".join(row)
-
-    def random_row(self):
+          print " ".join(row)
+    def random_ships(self):
         for ships in range(self.num_ships):
-            shipsrandint(0, len(self.board) - 1)
-
-    def random_col(self):
-        return randint(0, len(self.board) - 1)
+            x_coord = randint(0, len(self.board) - 1)
+            y_coord = randint(0, len(self.board) - 1)
+            self.player_ships[ships].append([x_coord, y_coord])
 
 # Initialize the game
 board_size = 5
 num_turns = 5
-board = []
+num_ships = raw_input("Number of ships in the game?")
 firstplayer_name = raw_input("First Players name? ")
 secondplayer_name = raw_input("Second Players name? ")
-firstplayer = battleboard(firstplayer_name, board_size, board)
-secondplayer = battleboard(secondplayer_name, board_size, board)
+firstplayer = BattleBoard(firstplayer_name, board_size, num_ships)
 firstplayer.create_board()
+firstplayer.random_ships()
+secondplayer = BattleBoard(secondplayer_name, board_size, num_ships)
 secondplayer.create_board()
-first_ship_row = firstplayer.random_row()
-first_ship_col = firstplayer.random_col()
-second_ship_row = secondplayer.random_row()
-second_ship_col = secondplayer.random_col()
+secondplayer.random_ships()
 
 print "First Player Ship location"
-print first_ship_row
-print first_ship_col
+print firstplayer.player_ships
 
 print "Second Player Ship location"
-print second_ship_row
-print second_ship_col
+print secondplayer.player_ships
 
 print "Let's play Battleship!"
 
